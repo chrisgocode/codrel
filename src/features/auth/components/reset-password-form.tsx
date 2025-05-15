@@ -3,7 +3,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,39 +17,48 @@ import { Input } from "@/components/ui/input";
 import { encodedRedirect } from "@/utils/utils";
 import { toast } from "sonner";
 import { paths } from "@/config/path";
-import { signInAction } from "@/app/actions";
+import { resetPasswordAction } from "@/app/actions";
 import { useState } from "react";
 
-export const loginFormSchema = z.object({
-  email: z.string().email().min(1, {
-    message: "Email is required",
-  }),
-  password: z.string().min(1, {
-    message: "Password is required",
-  }),
-});
+export const resetPasswordFormSchema = z
+  .object({
+    password: z.string().min(8, {
+      message: "Password must be at least 8 characters long",
+    }),
+    confirmPassword: z.string().min(8, {
+      message: "Password must be at least 8 characters long",
+    }),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (confirmPassword !== password) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords do not match",
+      });
+    }
+  });
 
-export default function LoginForm() {
+export default function ResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
 
-  const loginForm = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
+  const resetPasswordForm = useForm<z.infer<typeof resetPasswordFormSchema>>({
+    resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
-      email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
+  const onSubmit = async (data: z.infer<typeof resetPasswordFormSchema>) => {
     setIsLoading(true);
-    const result = await signInAction(data);
+    const result = await resetPasswordAction(data);
 
     if (result && result.success) {
-      toast.success(result.message || "Sign in successful!");
+      toast.success(result.message || "Password reset successful!");
       encodedRedirect(
         "success",
-        paths.home.getHref(),
-        result.message || "Sign in successful!"
+        paths.auth.login.getHref(),
+        result.message || "Password reset successful! Please sign in."
       );
     } else if (result && result.error) {
       toast.error(result.error);
@@ -61,27 +69,13 @@ export default function LoginForm() {
   };
 
   return (
-    <Form {...loginForm}>
-      <form onSubmit={loginForm.handleSubmit(onSubmit)} className="space-y-6">
+    <Form {...resetPasswordForm}>
+      <form
+        onSubmit={resetPasswordForm.handleSubmit(onSubmit)}
+        className="space-y-6"
+      >
         <FormField
-          control={loginForm.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-gray-700">Email</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Email"
-                  {...field}
-                  className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
-                />
-              </FormControl>
-              <FormMessage className="text-red-500" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={loginForm.control}
+          control={resetPasswordForm.control}
           name="password"
           render={({ field }) => (
             <FormItem>
@@ -98,19 +92,29 @@ export default function LoginForm() {
             </FormItem>
           )}
         />
-        <div className="text-sm text-right">
-          <Link
-            href={paths.auth.reset.forgotPassword.getHref()}
-            className="font-medium text-amber-600 hover:text-amber-500"
-          >
-            Forgot password?
-          </Link>
-        </div>
+        <FormField
+          control={resetPasswordForm.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-gray-700">Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  type="password"
+                  placeholder="Confirm Password"
+                  {...field}
+                  className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
+                />
+              </FormControl>
+              <FormMessage className="text-red-500" />
+            </FormItem>
+          )}
+        />
         <Button
           type="submit"
           className="w-full bg-amber-500 hover:bg-amber-600 text-white"
         >
-          {isLoading ? "Signing in..." : "Sign In"}
+          {isLoading ? "Resetting password..." : "Reset password"}
         </Button>
       </form>
     </Form>

@@ -15,8 +15,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signUpAction } from "@/app/actions";
+import { toast } from "sonner";
+import { paths } from "@/config/path";
+import { encodedRedirect } from "@/utils/utils";
+import { useState } from "react";
 
-const formSchema = z
+export const registerFormSchema = z
   .object({
     email: z.string().email().min(1, {
       message: "Email is required",
@@ -39,8 +44,10 @@ const formSchema = z
   });
 
 export default function RegisterForm() {
-  const registerForm = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [isLoading, setIsLoading] = useState(false);
+
+  const registerForm = useForm<z.infer<typeof registerFormSchema>>({
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       email: "",
       username: "",
@@ -49,8 +56,23 @@ export default function RegisterForm() {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof registerFormSchema>) => {
+    setIsLoading(true);
+    const result = await signUpAction(data);
+
+    if (result && result.success) {
+      toast.success(result.message || "Sign up successful!");
+      encodedRedirect(
+        "success",
+        paths.home.getHref(),
+        result.message || "Sign up successful!"
+      );
+    } else if (result && result.error) {
+      toast.error(result.error);
+    } else {
+      toast.error("An unexpected error occurred during sign up.");
+    }
+    setIsLoading(false);
   };
 
   return (
@@ -142,7 +164,7 @@ export default function RegisterForm() {
           type="submit"
           className="w-full bg-amber-500 hover:bg-amber-600 text-white"
         >
-          Create Account
+          {isLoading ? "Signing up..." : "Create Account"}
         </Button>
       </form>
     </Form>
