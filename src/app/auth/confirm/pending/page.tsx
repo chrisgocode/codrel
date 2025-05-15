@@ -15,7 +15,7 @@ export default function EmailConfirmationPendingPage() {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === "SIGNED_IN" || event === "USER_UPDATED") {
-          if (session?.user && session.user.email_confirmed_at) {
+          if (session?.user?.email_confirmed_at) {
             // User's email is confirmed
             router.push(paths.app.root.getHref());
           }
@@ -25,7 +25,7 @@ export default function EmailConfirmationPendingPage() {
 
     const checkInitialStatus = async () => {
       const { data } = await supabase.auth.getUser();
-      if (data?.user && data.user.email_confirmed_at) {
+      if (data?.user?.email_confirmed_at) {
         router.push(paths.app.root.getHref());
       }
     };
