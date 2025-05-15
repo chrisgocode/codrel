@@ -29,16 +29,33 @@ export const registerFormSchema = z
     username: z.string().min(3, {
       message: "Username must be at least 3 characters long",
     }),
-    password: z.string().min(8, {
+    password: z
+      .string()
+      .min(8, {
+        message: "Password must be at least 8 characters long",
+      })
+      .regex(/[a-z]/, {
+        message: "Password must contain at least one lowercase letter",
+      })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Password must contain at least one digit",
+      })
+      .regex(/[^a-zA-Z0-9]/, {
+        message: "Password must contain at least one special character",
+      }),
+    confirmPassword: z.string().min(8, {
       message: "Password must be at least 8 characters long",
     }),
-    confirmPassword: z.string().min(8),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
     if (confirmPassword !== password) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Passwords do not match",
+        path: ["confirmPassword"],
       });
     }
   });
@@ -138,7 +155,9 @@ export default function RegisterForm() {
                 />
               </FormControl>
               <FormDescription className="text-gray-500 text-xs">
-                Must be at least 8 characters long.
+                Password must be at least 8 characters long, contain at least
+                one lowercase letter, one uppercase letter, one digit, and one
+                special character.
               </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>

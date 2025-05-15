@@ -41,7 +41,7 @@ export default function ResetPasswordPage() {
 
               <div className="mt-6 text-center text-sm">
                 <p className="text-gray-600">
-                  Remembered your password or don&apos;t want to reset?{" "}
+                  Remembered your password?{" "}
                   <Link
                     href={paths.auth.login.getHref()}
                     className="text-amber-600 hover:text-amber-500 font-medium"

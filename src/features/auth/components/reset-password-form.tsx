@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -22,9 +23,23 @@ import { useState } from "react";
 
 export const resetPasswordFormSchema = z
   .object({
-    password: z.string().min(8, {
-      message: "Password must be at least 8 characters long",
-    }),
+    password: z
+      .string()
+      .min(8, {
+        message: "Password must be at least 8 characters long",
+      })
+      .regex(/[a-z]/, {
+        message: "Password must contain at least one lowercase letter",
+      })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[0-9]/, {
+        message: "Password must contain at least one digit",
+      })
+      .regex(/[^a-zA-Z0-9]/, {
+        message: "Password must contain at least one special character",
+      }),
     confirmPassword: z.string().min(8, {
       message: "Password must be at least 8 characters long",
     }),
@@ -34,6 +49,7 @@ export const resetPasswordFormSchema = z
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: "Passwords do not match",
+        path: ["confirmPassword"],
       });
     }
   });
@@ -94,6 +110,11 @@ export default function ResetPasswordForm() {
                   className="border-amber-200 focus:border-amber-500 focus:ring-amber-500"
                 />
               </FormControl>
+              <FormDescription className="text-gray-500 text-xs">
+                Password must be at least 8 characters long, contain at least
+                one lowercase letter, one uppercase letter, one digit, and one
+                special character.
+              </FormDescription>
               <FormMessage className="text-red-500" />
             </FormItem>
           )}
