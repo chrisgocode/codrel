@@ -5,6 +5,13 @@ import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { paths } from "@/config/path";
 
+/**
+ * Handles password reset flows by processing authentication tokens or errors from the URL hash and managing user session state.
+ *
+ * This React hook inspects the URL hash for password reset tokens or error parameters on mount. It sets the authentication session if valid tokens are present, redirects to the login page with an error message if an error is detected, or prompts the user to use the password reset email link if no session or tokens are found.
+ *
+ * @remark Intended for use in client-side Next.js pages involved in password reset flows.
+ */
 export function usePasswordResetHandler() {
   const router = useRouter();
 

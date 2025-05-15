@@ -54,6 +54,11 @@ export const resetPasswordFormSchema = z
     }
   });
 
+/**
+ * Renders a password reset form with validation and submission handling.
+ *
+ * Displays input fields for a new password and its confirmation, enforcing password complexity and matching requirements. On successful submission, shows a success message and redirects to the login page; on failure, displays an error message.
+ */
 export default function ResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
