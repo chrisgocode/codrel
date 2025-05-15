@@ -44,11 +44,6 @@ export const signUpAction = async (
       return { success: false, error: error.message };
     } else {
       console.log("Sign up successful, pending email confirmation.");
-      encodedRedirect(
-        "success",
-        paths.auth.confirm.pending.getHref(),
-        "Please check your email to confirm your account."
-      );
       return {
         success: true,
         message: "Confirmation email sent. Please check your inbox.",

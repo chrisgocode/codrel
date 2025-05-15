@@ -17,9 +17,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpAction } from "@/app/actions";
 import { toast } from "sonner";
-import { paths } from "@/config/path";
-import { encodedRedirect } from "@/utils/utils";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { paths } from "@/config/path";
 
 export const registerFormSchema = z
   .object({
@@ -45,7 +45,7 @@ export const registerFormSchema = z
 
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter();
   const registerForm = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -63,11 +63,7 @@ export default function RegisterForm() {
 
       if (result?.success) {
         toast.success(result.message ?? "Sign up successful!");
-        encodedRedirect(
-          "success",
-          paths.home.getHref(),
-          result.message ?? "Sign up successful!"
-        );
+        router.push(paths.auth.confirm.pending.getHref());
       } else if (result?.error) {
         toast.error(result.error);
       } else {
