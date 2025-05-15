@@ -26,7 +26,6 @@ export const signUpAction = async (
       paths.auth.register.getHref(),
       "Missing required fields"
     );
-    return { error: "Missing required fields" };
   } else {
     const { error } = await supabase.auth.signUp({
       email,
@@ -63,7 +62,6 @@ export const signInAction = async (data: z.infer<typeof loginFormSchema>) => {
       paths.auth.login.getHref(),
       "Missing required fields"
     );
-    return { error: "Missing required fields" };
   } else {
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -92,7 +90,6 @@ export const requestPasswordResetAction = async (
       paths.auth.reset.forgotPassword.getHref(),
       "Missing required fields"
     );
-    return { error: "Missing required fields" };
   } else {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${origin}/auth/reset-password`,

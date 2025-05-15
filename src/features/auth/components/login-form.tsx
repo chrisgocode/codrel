@@ -4,6 +4,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { encodedRedirect } from "@/utils/utils";
 import { toast } from "sonner";
 import { paths } from "@/config/path";
 import { signInAction } from "@/app/actions";
@@ -32,6 +32,7 @@ export const loginFormSchema = z.object({
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const loginForm = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -48,11 +49,10 @@ export default function LoginForm() {
 
       if (result?.success) {
         toast.success(result.message || "Sign in successful!");
-        encodedRedirect(
-          "success",
-          paths.home.getHref(),
+        const redirectPath = `${paths.home.getHref()}?success=${encodeURIComponent(
           result.message || "Sign in successful!"
-        );
+        )}`;
+        router.push(redirectPath);
       } else if (result?.error) {
         toast.error(result.error);
       } else {

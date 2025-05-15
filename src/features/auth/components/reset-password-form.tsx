@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { encodedRedirect } from "@/utils/utils";
 import { toast } from "sonner";
 import { paths } from "@/config/path";
 import { resetPasswordAction } from "@/app/actions";
@@ -56,6 +56,7 @@ export const resetPasswordFormSchema = z
 
 export default function ResetPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const resetPasswordForm = useForm<z.infer<typeof resetPasswordFormSchema>>({
     resolver: zodResolver(resetPasswordFormSchema),
@@ -72,11 +73,10 @@ export default function ResetPasswordForm() {
 
       if (result?.success) {
         toast.success(result.message || "Password reset successful!");
-        encodedRedirect(
-          "success",
-          paths.auth.login.getHref(),
+        const redirectPath = `${paths.auth.login.getHref()}?success=${encodeURIComponent(
           result.message || "Password reset successful! Please sign in."
-        );
+        )}`;
+        router.push(redirectPath);
       } else if (result?.error) {
         toast.error(result.error);
       } else {
