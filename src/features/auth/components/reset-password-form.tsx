@@ -50,22 +50,28 @@ export default function ResetPasswordForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof resetPasswordFormSchema>) => {
-    setIsLoading(true);
-    const result = await resetPasswordAction(data);
+    try {
+      setIsLoading(true);
+      const result = await resetPasswordAction(data);
 
-    if (result && result.success) {
-      toast.success(result.message || "Password reset successful!");
-      encodedRedirect(
-        "success",
-        paths.auth.login.getHref(),
-        result.message || "Password reset successful! Please sign in."
-      );
-    } else if (result && result.error) {
-      toast.error(result.error);
-    } else {
-      toast.error("An unexpected error occurred during sign in.");
+      if (result?.success) {
+        toast.success(result.message || "Password reset successful!");
+        encodedRedirect(
+          "success",
+          paths.auth.login.getHref(),
+          result.message ?? "Password reset successful! Please sign in."
+        );
+      } else if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.error("An unexpected error occurred during password reset.");
+      }
+    } catch (err: unknown) {
+      toast.error("Unable to reset password. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
