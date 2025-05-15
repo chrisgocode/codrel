@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     "Catalog your reads, share reviews, and connect with fellow book lovers",
 };
 
+/**
+ * Provides the global HTML structure and layout for the application, including font styling and notification support.
+ *
+ * Renders the application's content within a styled `<body>` and includes a notification toaster for UI messages.
+ *
+ * @param children - The content to be rendered within the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

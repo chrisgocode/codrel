@@ -5,6 +5,11 @@ import { paths } from "@/config/path";
 import { BookOpen } from "lucide-react";
 import LoginForm from "@/features/auth/components/login-form";
 
+/**
+ * Renders the login page layout for the Codrel application.
+ *
+ * Displays a full-screen, vertically centered login card with a sign-in form, navigation links to home and registration pages, and a footer.
+ */
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">

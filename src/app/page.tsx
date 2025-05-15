@@ -14,6 +14,13 @@ import BookAnimation from "@/features/landing/book-animation";
 import TestimonialCard from "@/features/landing/testimonial-card";
 import { paths } from "@/config/path";
 
+/**
+ * Renders the landing page for the Codrel book tracking web application.
+ *
+ * Displays a multi-section, fully responsive landing page including a sticky header with navigation, a hero section, feature highlights, a step-by-step guide, community testimonials, pricing plans, a call-to-action, and a footer with legal and social links.
+ *
+ * @returns The complete landing page UI for Codrel.
+ */
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">

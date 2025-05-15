@@ -6,6 +6,11 @@ import { BookOpen, KeyRound } from "lucide-react";
 import ResetPasswordForm from "@/features/auth/components/reset-password-form";
 import { usePasswordResetHandler } from "@/features/auth/hooks/usePasswordResetHandler";
 
+/**
+ * Renders the password reset page with a form for setting a new password.
+ *
+ * Displays a header with site branding, a centered card containing instructions and the password reset form, a link to the login page, and a footer with copyright.
+ */
 export default function ResetPasswordPage() {
   usePasswordResetHandler();
 

@@ -5,6 +5,11 @@ import { paths } from "@/config/path";
 import { BookOpen } from "lucide-react";
 import RegisterForm from "@/features/auth/components/register-form";
 
+/**
+ * Renders the registration page layout with a registration form, navigation links, and legal information.
+ *
+ * Displays a full-page, styled registration interface including a header with site branding, a centered card containing the registration form and prompts, and footer sections with navigation and copyright.
+ */
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">

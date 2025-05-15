@@ -5,6 +5,11 @@ import { paths } from "@/config/path";
 import { BookOpen, MailQuestion } from "lucide-react";
 import ForgotPasswordForm from "@/features/auth/components/forgot-password-form";
 
+/**
+ * Renders the password recovery page with a form for users to request a password reset link.
+ *
+ * Displays a full-page layout with a sticky header, a centered card containing instructions and the password reset form, navigation links, and a footer.
+ */
 export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">

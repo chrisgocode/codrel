@@ -4,6 +4,11 @@ import Link from "next/link";
 import { paths } from "@/config/path";
 import { BookOpen, PartyPopper } from "lucide-react";
 
+/**
+ * Renders a static confirmation page indicating successful email verification.
+ *
+ * Displays a celebratory message and instructions for the user after confirming their email address, with navigation to the home page and branding elements.
+ */
 export default function EmailConfirmationSuccessPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">

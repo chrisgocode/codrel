@@ -60,6 +60,11 @@ export const registerFormSchema = z
     }
   });
 
+/**
+ * Renders a user registration form with validation and handles form submission.
+ *
+ * Displays input fields for email, username, password, and password confirmation, enforcing validation rules for each field. On submission, attempts to register the user and provides feedback via toast notifications. Redirects to a confirmation page upon successful registration.
+ */
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
