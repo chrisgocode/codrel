@@ -57,22 +57,28 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof registerFormSchema>) => {
-    setIsLoading(true);
-    const result = await signUpAction(data);
+    try {
+      setIsLoading(true);
+      const result = await signUpAction(data);
 
-    if (result && result.success) {
-      toast.success(result.message || "Sign up successful!");
-      encodedRedirect(
-        "success",
-        paths.home.getHref(),
-        result.message || "Sign up successful!"
-      );
-    } else if (result && result.error) {
-      toast.error(result.error);
-    } else {
-      toast.error("An unexpected error occurred during sign up.");
+      if (result?.success) {
+        toast.success(result.message ?? "Sign up successful!");
+        encodedRedirect(
+          "success",
+          paths.home.getHref(),
+          result.message ?? "Sign up successful!"
+        );
+      } else if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.error("An unexpected error occurred during sign-up.");
+      }
+    } catch (err: unknown) {
+      toast.error("Unable to complete sign-up. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
