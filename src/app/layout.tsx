@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     "Catalog your reads, share reviews, and connect with fellow book lovers",
 };
 
+/**
+ * Defines the root layout for the application, applying global styles, font, and notification support.
+ *
+ * Wraps all page content with the Inter font and includes a global toast notification system.
+ *
+ * @param children - The page content to render within the layout.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

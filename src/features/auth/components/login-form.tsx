@@ -30,6 +30,11 @@ export const loginFormSchema = z.object({
   }),
 });
 
+/**
+ * Renders a login form with email and password fields, handling validation, submission, and user feedback.
+ *
+ * Displays validation errors, manages loading state during sign-in, and shows toast notifications for success or failure. On successful login, redirects the user to the home page with a success message.
+ */
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

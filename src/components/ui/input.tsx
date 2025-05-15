@@ -2,6 +2,13 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+/****
+ * Renders a styled HTML input element with customizable properties and enhanced accessibility.
+ *
+ * Combines predefined Tailwind CSS classes with any additional classes provided via {@link className}, supporting various input types, validation states, and file input styling. All standard input props are supported and forwarded to the underlying element.
+ *
+ * @returns The rendered input element.
+ */
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (
     <input

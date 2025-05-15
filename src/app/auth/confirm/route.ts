@@ -5,6 +5,14 @@ import { createClient } from "@/utils/supabase/server";
 import { encodedRedirect } from "@/utils/utils";
 import { paths } from "@/config/path";
 
+/**
+ * Handles email OTP verification for authentication via a GET request.
+ *
+ * Extracts `token_hash` and `type` from the query parameters, verifies the OTP using Supabase, and redirects the user to a success or error page based on the verification result.
+ *
+ * @param request - The incoming HTTP request containing OTP verification parameters.
+ * @returns A redirect response to either the success or error page, with an appropriate message.
+ */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get("token_hash");

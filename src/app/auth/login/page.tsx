@@ -5,6 +5,11 @@ import { paths } from "@/config/path";
 import { BookOpen } from "lucide-react";
 import LoginForm from "@/features/auth/components/login-form";
 
+/**
+ * Renders the login page with a sign-in form, navigation links, and site branding.
+ *
+ * Displays a centered login card with a welcoming message, a form for user authentication, and links to register or return to the home page. Includes a sticky header with site navigation and a footer with copyright.
+ */
 export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">

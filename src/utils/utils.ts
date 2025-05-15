@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
 
 /**
- * Redirects to a specified path with an encoded message as a query parameter.
- * @param {('error' | 'success')} type - The type of message, either 'error' or 'success'.
- * @param {string} path - The path to redirect to.
- * @param {string} message - The message to be encoded and added as a query parameter.
- * @returns {never} This function doesn't return as it triggers a redirect.
+ * Redirects to the given path, appending an encoded message as a query parameter named after the specified type.
+ *
+ * @param type - The message type, either "error" or "success".
+ * @param path - The destination path for the redirect.
+ * @param message - The message to encode and include as a query parameter.
+ *
+ * @remark This function never returns, as it immediately triggers a navigation redirect.
  */
 export function encodedRedirect(
   type: "error" | "success",

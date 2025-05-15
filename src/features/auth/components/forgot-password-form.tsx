@@ -26,6 +26,11 @@ export const forgotPasswordFormSchema = z.object({
   }),
 });
 
+/**
+ * Renders a password reset request form with email validation and handles submission.
+ *
+ * Displays a form for users to enter their email address to request a password reset. Validates the input, submits the request, shows success or error notifications, and redirects on success.
+ */
 export default function ForgotPasswordForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

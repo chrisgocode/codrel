@@ -1,6 +1,11 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
 
+/**
+ * Handles incoming Next.js requests by updating the user's session.
+ *
+ * Passes the request to the session update utility and returns its result.
+ */
 export async function middleware(request: NextRequest) {
   return await updateSession(request);
 }

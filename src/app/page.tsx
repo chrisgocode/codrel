@@ -14,6 +14,11 @@ import BookAnimation from "@/features/landing/book-animation";
 import TestimonialCard from "@/features/landing/testimonial-card";
 import { paths } from "@/config/path";
 
+/**
+ * Renders the main landing page for the Codrel platform, including navigation, hero section, features, how-it-works, community testimonials, pricing plans, call to action, and footer.
+ *
+ * @returns The complete landing page React element for Codrel.
+ */
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">

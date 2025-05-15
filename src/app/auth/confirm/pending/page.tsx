@@ -7,6 +7,11 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 
+/**
+ * Displays a page informing the user that email confirmation is pending and automatically redirects to the app once the email is confirmed.
+ *
+ * Sets up listeners for authentication state changes and checks the user's email confirmation status on mount. If the email is confirmed, the user is redirected to the main application page.
+ */
 export default function EmailConfirmationPendingPage() {
   const router = useRouter();
   const supabase = createClient();

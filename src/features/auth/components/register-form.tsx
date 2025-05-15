@@ -60,6 +60,11 @@ export const registerFormSchema = z
     }
   });
 
+/**
+ * Renders a user registration form with validation and handles form submission.
+ *
+ * The form collects email, username, password, and password confirmation, enforcing validation rules via a Zod schema. On submission, it attempts to register the user, displays success or error notifications, and redirects to a confirmation page upon successful registration.
+ */
 export default function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();

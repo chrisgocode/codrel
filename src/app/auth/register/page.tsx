@@ -5,6 +5,11 @@ import { paths } from "@/config/path";
 import { BookOpen } from "lucide-react";
 import RegisterForm from "@/features/auth/components/register-form";
 
+/**
+ * Renders the registration page layout for new users to create an account.
+ *
+ * Displays a registration form, navigation links, and informational sections within a styled card layout. Includes links to sign in, terms, privacy policy, and navigation back to the home page.
+ */
 export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white flex flex-col">
