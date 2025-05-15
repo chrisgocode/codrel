@@ -40,8 +40,8 @@ export const resetPasswordFormSchema = z
       .regex(/[^a-zA-Z0-9]/, {
         message: "Password must contain at least one special character",
       }),
-    confirmPassword: z.string().min(8, {
-      message: "Password must be at least 8 characters long",
+    confirmPassword: z.string().min(1, {
+      message: "Password confirmation is required",
     }),
   })
   .superRefine(({ confirmPassword, password }, ctx) => {
