@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     });
     if (!error) {
       // Email verified, redirect to the new success page
-      encodedRedirect(
+      return encodedRedirect(
         "success",
         paths.auth.confirm.success.getHref(),
         "Email verified successfully!"
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  encodedRedirect(
+  return encodedRedirect(
     "error",
     paths.home.getHref(),
     "Email verification failed. Please try again or contact support."
