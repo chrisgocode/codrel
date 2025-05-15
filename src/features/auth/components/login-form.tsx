@@ -42,22 +42,28 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
-    setIsLoading(true);
-    const result = await signInAction(data);
+    try {
+      setIsLoading(true);
+      const result = await signInAction(data);
 
-    if (result && result.success) {
-      toast.success(result.message || "Sign in successful!");
-      encodedRedirect(
-        "success",
-        paths.home.getHref(),
-        result.message || "Sign in successful!"
-      );
-    } else if (result && result.error) {
-      toast.error(result.error);
-    } else {
-      toast.error("An unexpected error occurred during sign in.");
+      if (result?.success) {
+        toast.success(result.message || "Sign in successful!");
+        encodedRedirect(
+          "success",
+          paths.home.getHref(),
+          result.message || "Sign in successful!"
+        );
+      } else if (result?.error) {
+        toast.error(result.error);
+      } else {
+        toast.error("An unexpected error occurred during sign in.");
+      }
+    } catch (err: unknown) {
+      toast.error("Unable to sign in. Please try again.");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (

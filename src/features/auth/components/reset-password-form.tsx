@@ -59,7 +59,7 @@ export default function ResetPasswordForm() {
         encodedRedirect(
           "success",
           paths.auth.login.getHref(),
-          result.message ?? "Password reset successful! Please sign in."
+          result.message || "Password reset successful! Please sign in."
         );
       } else if (result?.error) {
         toast.error(result.error);
