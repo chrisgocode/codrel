@@ -12,14 +12,25 @@ import {
 import FeatureCard from "@/features/landing/feature-card";
 import BookAnimation from "@/features/landing/book-animation";
 import TestimonialCard from "@/features/landing/testimonial-card";
+import { paths } from "@/config/path";
 
+/**
+ * Renders the landing page for the Codrel book tracking web application.
+ *
+ * Displays a multi-section, fully responsive landing page including a sticky header with navigation, a hero section, feature highlights, a step-by-step guide, community testimonials, pricing plans, a call-to-action, and a footer with legal and social links.
+ *
+ * @returns The complete landing page UI for Codrel.
+ */
 export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-          <div className="flex gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
+          <div className="flex items-center gap-6 md:gap-10">
+            <Link
+              href={paths.home.getHref()}
+              className="flex items-center space-x-2"
+            >
               <BookOpen className="h-6 w-6 text-amber-500" />
               <span className="inline-block font-bold text-xl">Codrel</span>
             </Link>
@@ -46,19 +57,23 @@ export default function LandingPage() {
           </div>
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="flex items-center space-x-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-sm font-medium transition-colors hover:text-amber-500"
-              >
-                Sign In
-              </Button>
-              <Button
-                size="sm"
-                className="bg-amber-500 hover:bg-amber-600 text-white"
-              >
-                Get Started
-              </Button>
+              <Link href={paths.auth.login.getHref()}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-sm font-medium transition-colors hover:text-amber-500"
+                >
+                  Sign In
+                </Button>
+              </Link>
+              <Link href={paths.auth.register.getHref()}>
+                <Button
+                  size="sm"
+                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                >
+                  Get Started
+                </Button>
+              </Link>
             </nav>
           </div>
         </div>
@@ -469,9 +484,11 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row mt-6">
-                <Button className="bg-white text-amber-600 hover:bg-amber-100">
-                  Create Your Account
-                </Button>
+                <Link href={paths.auth.register.getHref()}>
+                  <Button className="bg-white text-amber-600 hover:bg-amber-100">
+                    Create Your Account
+                  </Button>
+                </Link>
                 <Button className="bg-white text-amber-600 hover:bg-amber-100">
                   Learn More
                 </Button>
