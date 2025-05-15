@@ -168,6 +168,8 @@ export default function RegisterForm() {
         />
         <Button
           type="submit"
+          disabled={isLoading}
+          aria-disabled={isLoading}
           className="w-full bg-amber-500 hover:bg-amber-600 text-white"
         >
           {isLoading ? "Signing up..." : "Create Account"}
